@@ -1,10 +1,13 @@
 import React from 'react';
 import {render} from 'react-dom';
+import Answer from './answer.jsx';
 
 export default class AnswerContainer extends React.Component {
   render(){
     return(
-      <div className="answerContainer">Answers go here</div>
+      <div className="answerContainer">
+        <Answer />
+      </div>
     );
   }
 } 
