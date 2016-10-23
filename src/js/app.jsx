@@ -1,11 +1,16 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {QuestionContainer} from './questionContainer.jsx';
+import QuestionContainer from './questionContainer.jsx';
+import AnswerContainer from './answerContainer.jsx';
+import DigimonContainer from './digimonContainer.jsx';
 
-export class App extends React.Component {
+export default class App extends React.Component {
   render () {
-    return (<div className="wrapper">
+    return (
+    <div className="wrapper">
     	<QuestionContainer />
+      <AnswerContainer />
+      <DigimonContainer />
     </div>);
   }
 }
