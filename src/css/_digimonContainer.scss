@@ -1,9 +1,9 @@
 .digimonContainer{
 	min-height:300px;
 	height:100vh;
-	background: blue;
+	background: white;
 	width: 50%;
-	color:white;
+	color:black;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -19,7 +19,7 @@
 
 	display: flex;
 	#currentDigimon {
-		width: 50%;
+		max-width: 33.3%;
 		align-self: center;
 	}
 }
