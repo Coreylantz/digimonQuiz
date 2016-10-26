@@ -1,14 +1,13 @@
 import React from 'react';
-import {render} from 'react-dom';
-import AnswerPosition from './answerPosition.jsx';
-import AnswerArrowLeft from './answerArrowLeft.jsx';
-import AnswerText from './answerText.jsx';
-import AnswerArrowRight from './answerArrowRight.jsx';
-import AnswerSubmit from './answerSubmit.jsx';
+import AnswerPosition from './answer-position.jsx';
+import AnswerArrowLeft from './answer-arrow-left.jsx';
+import AnswerText from './answer-text.jsx';
+import AnswerArrowRight from './answer-arrow-right.jsx';
+import AnswerSubmit from './answer-submit.jsx';
 
 export default class Answers extends React.Component {
-  render(){
-    return(
+  render() {
+    return (
       <div className="answers">
         <AnswerPosition />
         <div className="answerFlex">

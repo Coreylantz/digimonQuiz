@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader'
-import App from "./app.jsx";
-require("../css/main.scss");
+import {AppContainer} from 'react-hot-loader';
+import App from './app.jsx';
+import '../css/main.scss'; // eslint-disable-line import/no-unassigned-import
 
 ReactDOM.render(
   <AppContainer>
     <App />
-  </AppContainer>, 
+  </AppContainer>,
   document.getElementById('root')
 );
 

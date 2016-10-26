@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 const SRC_DIR = path.resolve(__dirname, 'src');
 const DIST_DIR = path.resolve(__dirname, 'dist');
@@ -6,13 +6,13 @@ const DIST_DIR = path.resolve(__dirname, 'dist');
 let config = {};
 
 config.entry = [
-  SRC_DIR + "/js/index.jsx"
+  SRC_DIR + '/js/index.jsx'
 ];
 
 config.output = {
-  path: DIST_DIR + "/js",
-  publicPath: "/dist/js/",
-  filename: "bundle.js"
+  path: DIST_DIR + '/js',
+  publicPath: '/dist/js/',
+  filename: 'bundle.js'
 };
 
 config.module = {

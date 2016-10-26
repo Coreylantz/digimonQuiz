@@ -1,10 +1,10 @@
-const path = require("path");
+const path = require('path');
 const webpack = require('webpack');
 
 let baseConfig = require('./webpack.config');
 
 const SRC_DIR = path.resolve(__dirname, 'src');
-const DIST_DIR = path.resolve(__dirname, 'dist');
+// const DIST_DIR = path.resolve(__dirname, 'dist');
 
 baseConfig.entry.unshift(
   'react-hot-loader/patch',
@@ -16,7 +16,7 @@ baseConfig.module.loaders.push({
   test: /\.scss$/,
   include: SRC_DIR,
   exclude: /(node_modules|bower_components)/,
-  loaders: ["style", "css", "sass"]
+  loaders: ['style', 'css', 'sass']
 });
 
 baseConfig.plugins = [

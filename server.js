@@ -12,7 +12,7 @@ new WebpackDevServer(webpack(config), {
     cachedAssets: false,
     colors: true
   }
-}).listen(3000, 'localhost', function (err, result) {
+}).listen(3000, 'localhost', function (err) {
   if (err) {
     return console.log(err);
   }

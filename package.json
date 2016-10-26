@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev-build": "webpack -d --config webpack.config.dev",
-    "build": "webpack -p --config webpack.config.production"
+    "build": "webpack -p --config webpack.config.production",
+    "test": "xo"
   },
   "repository": {
     "type": "git",
@@ -21,18 +22,35 @@
     "url": "https://github.com/Coreylantz/digimonQuiz/issues"
   },
   "homepage": "https://github.com/Coreylantz/digimonQuiz#readme",
+  "xo": {
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "space": true,
+    "extends": "xo-react",
+    "rules": {
+      "react/jsx-space-before-closing": [
+        2,
+        "always"
+      ]
+    }
+  },
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.25.0",
+    "eslint-config-xo-react": "^0.10.0",
+    "eslint-plugin-react": "^6.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.1"
+    "webpack-dev-server": "^1.16.1",
+    "xo": "^0.17.0"
   },
   "dependencies": {
     "react": "^15.3.2",
