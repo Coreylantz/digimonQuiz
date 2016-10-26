@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 export default class AnswerSubmit extends React.Component{
   render(){
     return(
-      <p></p>
+      <button>Submit</button>
     );
   }
 }

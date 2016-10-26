@@ -11,9 +11,11 @@ export default class Answers extends React.Component {
     return(
       <div className="answers">
         <AnswerPosition />
-        <AnswerArrowLeft />
-        <AnswerText />
-        <AnswerArrowRight />
+        <div className="answerFlex">
+          <AnswerArrowLeft />
+          <AnswerText />
+          <AnswerArrowRight />
+        </div>
         <AnswerSubmit />
       </div>
     );

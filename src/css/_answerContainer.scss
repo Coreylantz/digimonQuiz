@@ -3,4 +3,34 @@
 	height: 50vh;
 	background: blue;
 	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.answers {
+		display: flex;
+		flex-direction: column;
+		justify-content:space-between;
+	}
+
+	.answerFlex {
+		display: flex;
+		justify-content:space-around;
+	}
+
+	.arrow {
+		background: red;
+		border: none;
+		height: 50px;
+		width: 50px;
+
+	}
+	.previousArrow {
+		// background-image: url("../../dist/images/assets/arrowL.png");
+		background:yellow;
+	}
+	.nextArrow {
+		// background-image: url("../../dist/images/assets/arrowL.png");
+		background:black;
+	}
 }

@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 export default class AnswerText extends React.Component{
   render(){
     return(
-      <p></p>
+      <p className="answer">Answer One</p>
     );
   }
 }
