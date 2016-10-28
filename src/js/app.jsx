@@ -4,12 +4,16 @@ import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
 
 export default class App extends React.Component {
+  getCurrentQuestion() {
+    return 'What is your name?';
+  }
+
   render() {
     return (
       <div className="wrapper">
         <DigimonContainer />
-        <QuestionContainer />
-        <AnswerContainer />
+        <QuestionContainer question={this.getCurrentQuestion()} />
+        <AnswerContainer question={this.getCurrentQuestion()} />
       </div>);
   }
 }
