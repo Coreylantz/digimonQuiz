@@ -26,11 +26,14 @@
 
 	}
 	.previousArrow {
-		// background-image: url("../../dist/images/assets/arrowL.png");
-		background:yellow;
+		background: url("dist/images/assets/arrowL.png") no-repeat;
+		background-position:center;
+		// background:yellow;
+		background-size: contain;
 	}
 	.nextArrow {
-		// background-image: url("../../dist/images/assets/arrowL.png");
-		background:black;
+		background: url("dist/images/assets/arrowR.png") no-repeat;
+		background-position:center;
+		background-size: contain;
 	}
 }

@@ -16,7 +16,7 @@ baseConfig.module.loaders.push({
   test: /\.scss$/,
   include: SRC_DIR,
   exclude: /(node_modules|bower_components)/,
-  loaders: ['style', 'css', 'sass']
+  loaders: ['style', 'css?-url', 'sass']
 });
 
 baseConfig.plugins = [
