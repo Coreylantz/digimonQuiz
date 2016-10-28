@@ -1,12 +1,18 @@
 import React from 'react';
 import Question from './question.jsx';
 
-export default class QuestionContainer extends React.Component {
+class QuestionContainer extends React.Component {
   render() {
     return (
       <div className="questionContainer">
-        <Question />
+        <Question question={this.props.question} />
       </div>
     );
   }
 }
+
+QuestionContainer.propTypes = {
+  question: React.PropTypes.string.isRequired
+};
+
+export default QuestionContainer;
