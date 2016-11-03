@@ -1,9 +1,15 @@
 import React from 'react';
 
-export default class AnswerArrowRight extends React.Component {
+class AnswerArrowRight extends React.Component {
   render() {
     return (
-      <button className="nextArrow arrow" />
+      <button className="nextArrow arrow" onClick={this.props.onClick} />
     );
   }
 }
+
+AnswerArrowRight.propTypes = {
+  onClick: React.PropTypes.func
+};
+
+export default AnswerArrowRight;

@@ -1,9 +1,15 @@
 import React from 'react';
 
-export default class AnswerText extends React.Component {
+class AnswerText extends React.Component {
   render() {
     return (
-      <p className="answer">Answer One</p>
+      <p className="answer">{this.props.answer}</p>
     );
   }
 }
+
+AnswerText.propTypes = {
+  answer: React.PropTypes.string.isRequired
+};
+
+export default AnswerText;

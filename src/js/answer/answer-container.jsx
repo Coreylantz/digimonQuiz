@@ -1,12 +1,19 @@
 import React from 'react';
+import IPropTypes from 'immutable-props';
 import Answer from './answer.jsx';
 
-export default class AnswerContainer extends React.Component {
+class AnswerContainer extends React.Component {
   render() {
     return (
       <div className="answerContainer">
-        <Answer />
+        <Answer answers={this.props.answers} />
       </div>
     );
   }
 }
+
+AnswerContainer.propTypes = {
+  answers: IPropTypes.Seq
+};
+
+export default AnswerContainer;
