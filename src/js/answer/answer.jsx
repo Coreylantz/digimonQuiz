@@ -11,6 +11,9 @@ class Answers extends React.Component {
     super(props);
 
     this.state = {currentAnswer: parseInt(props.answers.size / 2, 10)};
+
+    this.handleClickLeft = this.handleClickLeft.bind(this);
+    this.handleClickRight = this.handleClickRight.bind(this);
   }
 
   getCurrentAnswer() {
@@ -38,9 +41,9 @@ class Answers extends React.Component {
       <div className="answers">
         <AnswerPosition />
         <div className="answerFlex">
-          <AnswerArrowLeft onClick={() => this.handleClickLeft()} />
+          <AnswerArrowLeft onClick={this.handleClickLeft} />
           <AnswerText answer={this.getCurrentAnswer()} />
-          <AnswerArrowRight onClick={() => this.handleClickRight()} />
+          <AnswerArrowRight onClick={this.handleClickRight} />
         </div>
         <AnswerSubmit />
       </div>
