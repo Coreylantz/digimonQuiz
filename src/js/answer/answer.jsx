@@ -7,8 +7,10 @@ import AnswerArrowRight from './answer-arrow-right.jsx';
 import AnswerSubmit from './answer-submit.jsx';
 
 class Answers extends React.Component {
-  componentWillMount() {
-    this.setState({currentAnswer: parseInt(this.props.answers.size / 2, 10)});
+  constructor(props) {
+    super(props);
+
+    this.state = {currentAnswer: parseInt(props.answers.size / 2, 10)};
   }
 
   getCurrentAnswer() {

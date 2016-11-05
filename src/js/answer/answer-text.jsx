@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AnswerText extends React.Component {
+class AnswerText extends React.PureComponent {
   render() {
     return (
       <p className="answer">{this.props.answer}</p>
