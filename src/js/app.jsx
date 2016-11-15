@@ -1,12 +1,15 @@
 import React from 'react';
 import {Seq} from 'immutable';
+import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
 
 export default class App extends React.Component {
   getCurrentQuestion() {
-    return 'What is your name?';
+    console.log(questionData);
+    let currentQuestion = questionData[0].question;
+    return currentQuestion;
   }
 
   getAnswers() {
@@ -17,7 +20,8 @@ export default class App extends React.Component {
       'Test 3',
       'Test 4',
       'Test 5',
-      'Test 6'
+      'Test 6',
+      'Test 7'
     ]);
   }
 
