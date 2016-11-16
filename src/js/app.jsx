@@ -1,52 +1,43 @@
 import React from 'react';
-import {Seq} from 'immutable';
 import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
 
-export default class App extends React.Component {
-  getCurrentQuestion(n) {
-    console.log(questionData);
+export default class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-    let currentQuestion = questionData[0].question;
-    return currentQuestion;
+    this.state = {currentQuestion: 0};
+
+    // Create a non import copy of question data so we can modify the reference
+    // so poping the old stage works.
+    this.questions = questionData;
   }
 
-  getAnswers(n) {
-    let answersArray = questionData[n].answers;
-    let answerSeq = [];
-    for (var i = 0; i < answersArray.length; i++) {
-      let currentAnswer = answersArray[i];
-      answerSeq.push(currentAnswer.answerString);
-    }
-    console.log(answerSeq);
-    answerSeq = new Seq(answerSeq);
-    console.log(answerSeq);
-    return answerSeq;
-    // console.log(currentAnswer[0].answerString);
+  getCurrentQuestion() {
+    return this.questions.peek().get(this.state.currentQuestion);
+  }
 
-    // return new Seq([
-    //   'Test 0',
-    //   'Test 1',
-    //   'Test 2',
-    //   'Test 3',
-    //   'Test 4',
-    //   'Test 5',
-    //   'Test 6',
-    //   'Test 7'
-    // ]);
+  getCurrentQuestionText() {
+    return this.getCurrentQuestion().get('question');
+  }
+
+  getAnswerText() {
+    return this.getCurrentQuestion().get('answers').map(answer => {
+      return answer.get('text');
+    });
   }
 
   render() {
     return (
       <div className="wrapper">
         <DigimonContainer />
-        <QuestionContainer question={this.getCurrentQuestion()} />
+        <QuestionContainer question={this.getCurrentQuestionText()} />
         <AnswerContainer
-          question={this.getCurrentQuestion(0)}
-          answers={this.getAnswers(0)}
+          answers={this.getAnswerText()}
           />
-      </div>);
+      </div>
+    );
   }
 }
