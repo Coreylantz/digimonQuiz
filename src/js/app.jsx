@@ -3,6 +3,7 @@ import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
+import user from './user.js';
 
 export default class App extends React.PureComponent {
   constructor(props) {
@@ -13,6 +14,10 @@ export default class App extends React.PureComponent {
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
     this.questions = questionData;
+
+    // bind so that we may use these as props
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   getCurrentQuestion() {
@@ -29,6 +34,12 @@ export default class App extends React.PureComponent {
     });
   }
 
+  handleSubmit() {
+    this.setState({currentQuestion: this.state.currentQuestion + 1})
+
+    console.log(this.questions.peek().get(1));
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -36,6 +47,7 @@ export default class App extends React.PureComponent {
         <QuestionContainer question={this.getCurrentQuestionText()} />
         <AnswerContainer
           answers={this.getAnswerText()}
+          answerSubmit={this.handleSubmit}
           />
       </div>
     );

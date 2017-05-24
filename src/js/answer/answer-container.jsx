@@ -6,7 +6,8 @@ class AnswerContainer extends React.Component {
   render() {
     return (
       <div className="answerContainer">
-        <Answer answers={this.props.answers} />
+        <Answer answers={this.props.answers}
+                answerSubmit={this.props.answerSubmit}/>
       </div>
     );
   }

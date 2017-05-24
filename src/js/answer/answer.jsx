@@ -45,7 +45,7 @@ class Answers extends React.Component {
           <AnswerText answer={this.getCurrentAnswer()} />
           <AnswerArrowRight onClick={this.handleClickRight} />
         </div>
-        <AnswerSubmit />
+        <button onClick={this.props.answerSubmit}>Submit</button>
       </div>
     );
   }

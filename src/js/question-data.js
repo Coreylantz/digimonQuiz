@@ -6,7 +6,7 @@ let question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 1',
-      hp: 0 // Continue as needed
+      hp: 100 // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 1'
