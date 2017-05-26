@@ -6,7 +6,8 @@ let question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 1',
-      hp: 100 // Continue as needed
+      hp:100
+      // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 1'
@@ -23,7 +24,26 @@ question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 2',
-      hp: 0 // Continue as needed
+      hp: 100
+       // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 2'
+    })
+  ])
+});
+
+// Add the next question
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 3 for Stage 1',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 2',
+      hp: 100
+       // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 2'
@@ -47,7 +67,7 @@ question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 1',
-      hp: 0 // Continue as needed
+      hp: 0  // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 1'
@@ -64,7 +84,8 @@ question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 2',
-      hp: 0 // Continue as needed
+      hp: 0
+      // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 2'

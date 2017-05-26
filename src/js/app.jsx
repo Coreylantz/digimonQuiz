@@ -9,7 +9,8 @@ export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {currentQuestion: 0};
+    this.state = {currentQuestion: 0,
+                  currentAnswer: 0};
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -17,6 +18,9 @@ export default class App extends React.PureComponent {
 
     // bind so that we may use these as props
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClickLeft = this.handleClickLeft.bind(this);
+    this.handleClickRight = this.handleClickRight.bind(this);
+    this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
 
   }
 
@@ -34,10 +38,55 @@ export default class App extends React.PureComponent {
     });
   }
 
-  handleSubmit() {
-    this.setState({currentQuestion: this.state.currentQuestion + 1})
+  handleClickLeft() {
+    if (this.state.currentAnswer === 0) {
+      this.setState({currentAnswer: this.getAnswerText().size - 1});
+    } else {
+      this.setState({currentAnswer: this.state.currentAnswer - 1});
+    }
+    // console.log(this.state.currentAnswer);
+  }
 
-    console.log(this.questions.peek().get(1));
+  handleClickRight() {
+    if (this.state.currentAnswer === this.getAnswerText().size - 1) {
+      this.setState({currentAnswer: 0});
+    } else {
+      this.setState({currentAnswer: this.state.currentAnswer + 1});
+    }
+    // console.log(this.state.currentAnswer);
+  }
+
+  getAnswerStats() {
+    return this.getCurrentQuestion().get('answers').get(this.state.currentAnswer);
+  }
+
+  getCurrentAnswer() {
+    return this.getAnswerText().get(this.state.currentAnswer);
+  }
+
+  updateUser(statValue, stats) {
+    for (var i = 0; i < statValue.length; i++) {
+        if (statValue[i] !== 'text') {
+        // console.log(user[statValue[i]])
+        // console.log(stats.get(statValue[i]));
+
+        user[statValue[i]] += stats.get(statValue[i])
+        console.log(user);
+      }
+    }
+  }
+
+  handleSubmit() {
+    const stats = this.getAnswerStats();
+    for(var stat in stats) {
+      if(stats.hasOwnProperty(stat)) {
+        const statValue = stats[stat];
+        this.updateUser(statValue, stats)
+      }
+    }
+
+    // console.log(stats.size);
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
 
   render() {
@@ -46,7 +95,10 @@ export default class App extends React.PureComponent {
         <DigimonContainer />
         <QuestionContainer question={this.getCurrentQuestionText()} />
         <AnswerContainer
+          handleClickLeft={this.handleClickLeft}
+          handleClickRight={this.handleClickRight}
           answers={this.getAnswerText()}
+          answer={this.getCurrentAnswer()}
           answerSubmit={this.handleSubmit}
           />
       </div>
