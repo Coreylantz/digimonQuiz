@@ -7,7 +7,11 @@ class AnswerContainer extends React.Component {
     return (
       <div className="answerContainer">
         <Answer answers={this.props.answers}
-                answerSubmit={this.props.answerSubmit}/>
+        		answer={this.props.answer}
+                answerSubmit={this.props.answerSubmit}
+                handleClickLeft={this.props.handleClickLeft}
+          		handleClickRight={this.props.handleClickRight}
+                />
       </div>
     );
   }
