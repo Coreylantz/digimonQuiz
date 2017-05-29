@@ -10,7 +10,8 @@ export default class App extends React.PureComponent {
     super(props);
 
     this.state = {currentQuestion: 0,
-                  currentAnswer: 0};
+                  currentAnswer: 0,
+                  currentStage: 0};
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -24,8 +25,12 @@ export default class App extends React.PureComponent {
 
   }
 
+  getCurrentStage() {
+    return this.questions.get(this.state.currentStage);
+  }
+
   getCurrentQuestion() {
-    return this.questions.peek().get(this.state.currentQuestion);
+    return this.getCurrentStage().get(this.state.currentQuestion);
   }
 
   getCurrentQuestionText() {
@@ -85,8 +90,20 @@ export default class App extends React.PureComponent {
       }
     }
 
-    // console.log(stats.size);
+    if (this.state.currentQuestion === this.getCurrentStage().size - 1) {
+    this.setState({currentStage: this.state.currentStage + 1,
+    currentQuestion: 0});
+
+
+  } else {
     this.setState({currentQuestion: this.state.currentQuestion + 1});
+  }
+
+
+
+    // console.log(stats.size);
+    console.log(this.getCurrentStage().size);
+
   }
 
   // getAnswerStat() {
