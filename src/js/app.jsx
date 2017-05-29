@@ -34,11 +34,22 @@ export default class App extends React.PureComponent {
     });
   }
 
-  handleSubmit() {
-    this.setState({currentQuestion: this.state.currentQuestion + 1})
 
-    console.log(this.questions.peek().get(1));
+
+
+  handleSubmit() {
+    const obj = this.getCurrentQuestion().get('answers');
+    obj.toJS().map(item => {console.log(item)});
+    // console.log(obj);
+
+    this.setState({currentQuestion: this.state.currentQuestion + 1})
   }
+
+  // getAnswerStat() {
+  //   return this.getCurrentQuestion().get('answers').map(answer (answer, i) => {
+  //     return answer.get('hp');
+  //   });
+  // }
 
   render() {
     return (

@@ -51,8 +51,8 @@ class Answers extends React.Component {
   }
 }
 
-Answers.propTypes = {
-  answers: IPropTypes.Seq
-};
+// Answers.propTypes = {
+//   answers: IPropTypes.Seq
+// };
 
 export default Answers;

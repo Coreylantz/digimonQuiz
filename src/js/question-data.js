@@ -6,10 +6,11 @@ let question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 1',
-      hp: 100 // Continue as needed
+      hp: 200 // Continue as needed
     }),
     new Seq({
-      text: 'Answer 2 for Question 1'
+      text: 'Answer 2 for Question 1',
+      hp: 100
     })
   ])
 });
@@ -23,10 +24,30 @@ question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 2',
-      hp: 0 // Continue as needed
+      hp: 300 // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 2'
+    })
+  ])
+});
+
+// Add the next question
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 3 for Stage 1',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 3',
+      hp: 300 // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 3'
+    }),
+    new Seq({
+      text: 'Answer 3 for Question 3'
     })
   ])
 });
@@ -39,40 +60,40 @@ let questions = new List().push(questionList.valueSeq());
 
 // ----------------------------------------------------------
 // Start a new question list for the next stage
-questionList = new List();
-
-// Set up a question
-question = new Seq({
-  question: 'Question 1 for Stage 2',
-  answers: new Seq([
-    new Seq({
-      text: 'Answer 1 for Question 1',
-      hp: 0 // Continue as needed
-    }),
-    new Seq({
-      text: 'Answer 2 for Question 1'
-    })
-  ])
-});
-
-// Add the Question
-questionList = questionList.push(question);
-
-// Set up a different question
-question = new Seq({
-  question: 'Question 2 for Stage 2',
-  answers: new Seq([
-    new Seq({
-      text: 'Answer 1 for Question 2',
-      hp: 0 // Continue as needed
-    }),
-    new Seq({
-      text: 'Answer 2 for Question 2'
-    })
-  ])
-});
-
-questionList = questionList.push(question);
+// questionList = new List();
+//
+// // Set up a question
+// question = new Seq({
+//   question: 'Question 1 for Stage 2',
+//   answers: new Seq([
+//     new Seq({
+//       text: 'Answer 1 for Question 1',
+//       hp: 0 // Continue as needed
+//     }),
+//     new Seq({
+//       text: 'Answer 2 for Question 1'
+//     })
+//   ])
+// });
+//
+// // Add the Question
+// questionList = questionList.push(question);
+//
+// // Set up a different question
+// question = new Seq({
+//   question: 'Question 2 for Stage 2',
+//   answers: new Seq([
+//     new Seq({
+//       text: 'Answer 1 for Question 2',
+//       hp: 0 // Continue as needed
+//     }),
+//     new Seq({
+//       text: 'Answer 2 for Question 2'
+//     })
+//   ])
+// });
+//
+// questionList = questionList.push(question);
 
 // Add the stage
 questions = questions.push(questionList.valueSeq());
