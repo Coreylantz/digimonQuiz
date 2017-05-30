@@ -31,10 +31,21 @@ export default class App extends React.PureComponent {
     this.handleClickRight = this.handleClickRight.bind(this);
     this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
 
+    this.findFirstDigimon();
+
   }
 
-  currentDigimon() {
-
+  findFirstDigimon() {
+    if (this.state.currentDigimon !== 0) {
+      return currentDigimon; 
+    } else {
+      $.ajax({
+        url: `/digimon/${this.state.currentDigimon.name}.json`,
+        dataType: 'json'
+      }).then( (data) => {
+        console.log(data);
+      })
+    }
   }
 
   getCurrentStage() {
