@@ -1,5 +1,6 @@
 import React from 'react';
-// import 
+// const request = require('superagent');
+import request from 'superagent';
 import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
@@ -46,6 +47,16 @@ export default class App extends React.PureComponent {
       // }).then( (data) => {
       //   console.log(data);
       // })
+
+       request
+       .get(`digimon/${this.state.currentDigimon.name}.json`)
+       .end( (err, data) => {
+        if (err || !res.ok) {
+        alert('Oh no! error');
+     } else {
+       console.log(data);
+     }
+       });
     }
   }
 
