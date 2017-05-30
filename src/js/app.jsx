@@ -1,4 +1,5 @@
 import React from 'react';
+// import 
 import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
@@ -36,15 +37,15 @@ export default class App extends React.PureComponent {
   }
 
   findFirstDigimon() {
-    if (this.state.currentDigimon !== 0) {
-      return currentDigimon; 
+    if (this.state.currentDigimon === 0) {
+      return this.state.currentDigimon; 
     } else {
-      $.ajax({
-        url: `/digimon/${this.state.currentDigimon.name}.json`,
-        dataType: 'json'
-      }).then( (data) => {
-        console.log(data);
-      })
+      // $.ajax({
+      //   url: `/digimon/${this.state.currentDigimon.name}.json`,
+      //   dataType: 'json'
+      // }).then( (data) => {
+      //   console.log(data);
+      // })
     }
   }
 
