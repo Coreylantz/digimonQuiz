@@ -10,8 +10,8 @@ export default class App extends React.PureComponent {
     super(props);
 
     this.state = {currentQuestion: 0,
-                  currentAnswer: 0,
-                  currentStage: 0};
+      currentAnswer: 0,
+      currentStage: 0};
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -22,7 +22,6 @@ export default class App extends React.PureComponent {
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
     this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
-
   }
 
   getCurrentStage() {
@@ -71,11 +70,11 @@ export default class App extends React.PureComponent {
 
   updateUser(statValue, stats) {
     for (var i = 0; i < statValue.length; i++) {
-        if (statValue[i] !== 'text') {
+      if (statValue[i] !== 'text') {
         // console.log(user[statValue[i]])
         // console.log(stats.get(statValue[i]));
 
-        user[statValue[i]] += stats.get(statValue[i])
+        user[statValue[i]] += stats.get(statValue[i]);
         console.log(user);
       }
     }
@@ -83,27 +82,22 @@ export default class App extends React.PureComponent {
 
   handleSubmit() {
     const stats = this.getAnswerStats();
-    for(var stat in stats) {
-      if(stats.hasOwnProperty(stat)) {
+    for (var stat in stats) {
+      if (stats.hasOwnProperty(stat)) {
         const statValue = stats[stat];
-        this.updateUser(statValue, stats)
+        this.updateUser(statValue, stats);
       }
     }
 
     if (this.state.currentQuestion === this.getCurrentStage().size - 1) {
-    this.setState({currentStage: this.state.currentStage + 1,
-    currentQuestion: 0});
-
-
-  } else {
-    this.setState({currentQuestion: this.state.currentQuestion + 1});
-  }
-
-
+      this.setState({currentStage: this.state.currentStage + 1,
+        currentQuestion: 0});
+    } else {
+      this.setState({currentQuestion: this.state.currentQuestion + 1});
+    }
 
     // console.log(stats.size);
     console.log(this.getCurrentStage().size);
-
   }
 
   // getAnswerStat() {

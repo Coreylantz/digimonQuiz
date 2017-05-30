@@ -72,7 +72,6 @@ question = new Seq({
 // Add the Question
 questionList = questionList.push(question);
 
-
 // Add the stage
 let questions = new List().push(questionList.valueSeq());
 
