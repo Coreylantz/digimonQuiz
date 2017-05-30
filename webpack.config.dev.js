@@ -4,7 +4,7 @@ const webpack = require('webpack');
 let baseConfig = require('./webpack.config');
 
 const SRC_DIR = path.resolve(__dirname, 'src');
-// const DIST_DIR = path.resolve(__dirname, 'dist');
+const DIST_DIR = path.resolve(__dirname, 'dist');
 
 baseConfig.entry.unshift(
   'react-hot-loader/patch',
@@ -18,6 +18,10 @@ baseConfig.module.loaders.push({
   exclude: /(node_modules|bower_components)/,
   loaders: ['style', 'css?-url', 'sass']
 });
+
+baseConfig.devServer = {
+  contentBase: DIST_DIR + '/client'
+};
 
 baseConfig.plugins = [
   new webpack.HotModuleReplacementPlugin()
