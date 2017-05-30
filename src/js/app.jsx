@@ -11,7 +11,15 @@ export default class App extends React.PureComponent {
 
     this.state = {currentQuestion: 0,
                   currentAnswer: 0,
-                  currentStage: 0};
+                  currentStage: 0,
+                  currentDigimon: {
+                    name:"egg", 
+                    prettyName:"", 
+                    stats:{},
+                    type:"",
+                    number:0,
+                    nextEvos:[]}
+                  };
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -22,6 +30,10 @@ export default class App extends React.PureComponent {
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
     this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
+
+  }
+
+  currentDigimon() {
 
   }
 
@@ -115,7 +127,7 @@ export default class App extends React.PureComponent {
   render() {
     return (
       <div className="wrapper">
-        <DigimonContainer />
+        <DigimonContainer digimon={this.state.currentDigimon} />
         <QuestionContainer question={this.getCurrentQuestionText()} />
         <AnswerContainer
           handleClickLeft={this.handleClickLeft}

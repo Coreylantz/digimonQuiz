@@ -5,7 +5,7 @@ export default class DigimonContainer extends React.Component {
   render() {
     return (
       <div className="digimonContainer">
-        <Digimon />
+        <Digimon digimon={this.props.digimon} />
       </div>
     );
   }

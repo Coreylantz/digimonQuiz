@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-export default class DigimonInfo extends React.Component {
-  render() {
-    return (
-      <p>Digimon info goes here</p>
-    );
-  }
-}
+// export default class DigimonInfo extends React.Component {
+//   render() {
+//     return (
+      
+//     );
+//   }
+// }

@@ -7,9 +7,9 @@ export default class Digimon extends React.Component {
   render() {
     return (
       <div className="digimon">
-        <DigimonTitle />
-        <DigimonImage />
-        <DigimonInfo />
+        <h3 className="digimonTitle">Digi-Egg</h3>
+        <img id="currentDigimon" src={`dist/images/digimon/${this.props.digimon.name}.jpg`} />
+        <p>Digimon info goes here</p>
       </div>
     );
   }
