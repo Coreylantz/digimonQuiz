@@ -146,7 +146,7 @@ function handleNewMon(node) {
   // Write the old mon to json
   if (digimon.name.length > 0) {
     console.log(`Writing ${digimon.prettyName} to file...`);
-    fs.writeFile(`./digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
+    fs.writeFile(`.dist/digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
       if (e) {
         console.error(e); process.exit(0);
       }
