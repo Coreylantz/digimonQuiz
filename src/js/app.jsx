@@ -19,7 +19,7 @@ export default class App extends React.PureComponent {
                     prettyName:"", 
                     stats:{},
                     type:"",
-                    number:0,
+                    number:-1,
                     nextEvos:[]}
                   };
 
@@ -38,26 +38,37 @@ export default class App extends React.PureComponent {
   }
 
   findFirstDigimon() {
-    if (this.state.currentDigimon === 0) {
+    if (this.state.currentDigimon.number !== -1) {
       return this.state.currentDigimon; 
     } else {
-      // $.ajax({
-      //   url: `/digimon/${this.state.currentDigimon.name}.json`,
-      //   dataType: 'json'
-      // }).then( (data) => {
-      //   console.log(data);
-      // })
-
        request
        .get(`digimon/${this.state.currentDigimon.name}.json`)
        .end( (err, data) => {
-        if (err || !res.ok) {
+        if (err || !data.ok) {
         alert('Oh no! error');
      } else {
-       console.log(data);
+
+       this.setState({currentDigimon: JSON.parse(data.text)});
+       console.log(JSON.parse(data.text))
      }
        });
     }
+  }
+
+  findDigimonEvolution() {
+    this.state.currentDigimon.nextEvos.forEach((digimonName)  => {
+       request
+       .get(`digimon/${digimonName}.json`)
+       .end( (err, data) => {
+        if (err || !data.ok) {
+        alert('Oh no! error');
+     } else {
+
+       this.setState({currentDigimon: JSON.parse(data.text)});
+       console.log(JSON.parse(data.text))
+     }
+       });
+    })
   }
 
   getCurrentStage() {
@@ -134,6 +145,7 @@ export default class App extends React.PureComponent {
 
     // console.log(stats.size);
     console.log(this.getCurrentStage().size);
+    this.findDigimonEvolution();
   }
 
   // getAnswerStat() {
