@@ -20,7 +20,7 @@ baseConfig.module.loaders.push({
 });
 
 baseConfig.devServer = {
-  contentBase: DIST_DIR + '/client'
+  contentBase: DIST_DIR
 };
 
 baseConfig.plugins = [
