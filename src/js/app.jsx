@@ -7,6 +7,8 @@ import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
 import user from './user.js';
 
+let possibleEvos = [];
+
 export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -34,7 +36,6 @@ export default class App extends React.PureComponent {
     this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
 
     this.findFirstDigimon();
-
   }
 
   findFirstDigimon() {
@@ -47,9 +48,8 @@ export default class App extends React.PureComponent {
         if (err || !data.ok) {
         alert('Oh no! error');
      } else {
-
        this.setState({currentDigimon: JSON.parse(data.text)});
-       console.log(JSON.parse(data.text))
+       
      }
        });
     }
@@ -63,12 +63,48 @@ export default class App extends React.PureComponent {
         if (err || !data.ok) {
         alert('Oh no! error');
      } else {
-
-       this.setState({currentDigimon: JSON.parse(data.text)});
-       console.log(JSON.parse(data.text))
+       possibleEvos.push(JSON.parse(data.text))
+       // console.log(possibleEvos)
+       // console.log(JSON.parse(data.text))
      }
        });
     })
+  }
+
+  findDigimonMatch() {
+    let matchedNumber;
+    let digivolution;
+
+    possibleEvos.map((nextDigimon, i) => {
+      
+      let matchedStats = 0;
+      const digimonStatName = Object.keys(nextDigimon.stats);
+      digimonStatName.map( (stat) => {
+        const userStat = user[stat];
+        const nextDigimonStat = nextDigimon.stats[stat];
+        const matchedStat = userStat / nextDigimonStat;
+
+        // console.log(`${stat}: digimon:${nextDigimonStat} - user:${userStat}`);
+        // console.log(`differnce: ${userStat / nextDigimonStat}`);
+
+        matchedStats += matchedStat;
+      })
+
+        matchedStats -= 6;
+        const finalMatch = Math.abs(matchedStats);
+        // console.log(finalMatch);
+    
+        if (matchedNumber !== NaN && matchedNumber < finalMatch) {
+          // matchedNumber = finalMatch;
+          // console.log(`WhateverOne Number ${matchedNumber} ${nextDigimon}`);
+        } else {
+          matchedNumber = finalMatch;
+          console.log(nextDigimon);
+          digivolution = nextDigimon;
+        }
+    })
+
+    this.setState({currentDigimon: digivolution});
   }
 
   getCurrentStage() {
@@ -122,7 +158,7 @@ export default class App extends React.PureComponent {
         // console.log(stats.get(statValue[i]));
 
         user[statValue[i]] += stats.get(statValue[i]);
-        console.log(user);
+        // console.log(user);
       }
     }
   }
@@ -139,13 +175,20 @@ export default class App extends React.PureComponent {
     if (this.state.currentQuestion === this.getCurrentStage().size - 1) {
       this.setState({currentStage: this.state.currentStage + 1,
         currentQuestion: 0});
+      // this.setState({currentDigimon: possibleEvos[0]});
+      this.findDigimonMatch();
     } else {
+      // find the next possible eveolutions on the 2nd last question
+      if(this.state.currentQuestion === this.getCurrentStage().size - 2) {
+        this.findDigimonEvolution();
+      } else {possibleEvos = [];
+      // console.log(possibleEvos)
+       }
       this.setState({currentQuestion: this.state.currentQuestion + 1});
     }
 
     // console.log(stats.size);
-    console.log(this.getCurrentStage().size);
-    this.findDigimonEvolution();
+    // console.log(this.getCurrentStage().size);
   }
 
   // getAnswerStat() {
