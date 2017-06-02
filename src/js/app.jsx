@@ -4,7 +4,7 @@ import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
-import user from './user';
+import baseUser from './user';
 
 export default class App extends React.PureComponent {
   constructor(props) {
@@ -27,6 +27,8 @@ export default class App extends React.PureComponent {
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
     this.questions = questionData;
+
+    this.user = baseUser;
 
     // bind so that we may use these as props
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -72,17 +74,14 @@ export default class App extends React.PureComponent {
       let matchedStats = 0;
       const digimonStatName = Object.keys(nextDigimon.stats);
       digimonStatName.forEach(stat => {
-        const userStat = user[stat];
+        const userStat = this.user.get(stat);
         const nextDigimonStat = nextDigimon.stats[stat];
         const matchedStat = userStat / nextDigimonStat;
-
-        // console.log(`${stat}: digimon:${nextDigimonStat} - user:${userStat}`);
-        // console.log(`differnce: ${userStat / nextDigimonStat}`);
 
         matchedStats += matchedStat;
       });
 
-      matchedStats -= 6;
+      matchedStats -= digimonStatName.length;
       const finalMatch = Math.abs(matchedStats);
         // console.log(finalMatch);
 
@@ -91,7 +90,7 @@ export default class App extends React.PureComponent {
           // console.log(`WhateverOne Number ${matchedNumber} ${nextDigimon}`);
       } else {
         matchedNumber = finalMatch;
-        console.log(nextDigimon);
+        // console.log(nextDigimon);
         digivolution = nextDigimon;
       }
     });
@@ -135,26 +134,18 @@ export default class App extends React.PureComponent {
     }
   }
 
-  updateUser(statValue, stats) {
-    for (var i = 0; i < statValue.length; i++) {
-      if (statValue[i] !== 'text') {
-        // console.log(user[statValue[i]])
-        // console.log(stats.get(statValue[i]));
-
-        user[statValue[i]] += stats.get(statValue[i]);
-        // console.log(user);
+  updateUser(stats) {
+    return this.user.map((value, key) => {
+      if (stats.has(key)) {
+        value += stats.get(key);
       }
-    }
+
+      return value;
+    });
   }
 
   handleSubmit() {
-    const stats = this.getCurrentAnswer();
-    for (var stat in stats) {
-      if (stat in user) {
-        const statValue = stats[stat];
-        this.updateUser(statValue, stats);
-      }
-    }
+    this.user = this.updateUser(this.getCurrentAnswer());
 
     if (this.state.currentQuestion === this.getCurrentStage().size - 1) {
       this.setState({currentStage: this.state.currentStage + 1,
@@ -167,13 +158,9 @@ export default class App extends React.PureComponent {
         this.findDigimonEvolution();
       } else {
         this.possibleEvos = [];
-      // console.log(possibleEvos)
       }
       this.setState({currentQuestion: this.state.currentQuestion + 1});
     }
-
-    // console.log(stats.size);
-    // console.log(this.getCurrentStage().size);
   }
 
   render() {

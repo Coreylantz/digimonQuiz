@@ -1,4 +1,6 @@
-const user = {
+import {Seq} from 'immutable';
+
+const baseUser = new Seq({
   hp: 0,
   atk: 0,
   def: 0,
@@ -6,6 +8,6 @@ const user = {
   int: 0,
   spd: 0,
   digimon: [`egg`]
-};
+});
 
-export default user;
+export default baseUser;
