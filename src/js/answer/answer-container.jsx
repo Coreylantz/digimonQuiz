@@ -1,5 +1,5 @@
 import React from 'react';
-import IPropTypes from 'immutable-props';
+import PropTypes from 'prop-types';
 import Answer from './answer.jsx';
 
 class AnswerContainer extends React.Component {
@@ -7,19 +7,21 @@ class AnswerContainer extends React.Component {
     return (
       <div className="answerContainer">
         <Answer
-          answers={this.props.answers}
-          answer={this.props.answer}
-          answerSubmit={this.props.answerSubmit}
-          handleClickLeft={this.props.handleClickLeft}
-          		handleClickRight={this.props.handleClickRight}
-          		/>
+          answerText={this.props.answerText}
+          onAnswerSubmit={this.props.onAnswerSubmit}
+          onClickLeft={this.props.onClickLeft}
+          onClickRight={this.props.onClickRight}
+          />
       </div>
     );
   }
 }
 
 AnswerContainer.propTypes = {
-  answers: IPropTypes.Seq
+  answerText: PropTypes.string,
+  onAnswerSubmit: PropTypes.func,
+  onClickRight: PropTypes.func,
+  onClickLeft: PropTypes.func
 };
 
 export default AnswerContainer;

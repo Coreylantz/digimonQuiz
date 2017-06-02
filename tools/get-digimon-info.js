@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* eslint brace-style: 0 */
 
 const fs = require('fs');
 const request = require('superagent');
@@ -43,7 +43,7 @@ function start() {
     if (e) {
       fs.mkdir('./digimon', e => {
         if (e) {
-          console.error(e); process.exit(0);
+          throw e;
         }
         parsePage();
       });
@@ -59,11 +59,11 @@ function parsePage() {
     .query({page: pageNumber++})
     .end((e, response) => {
       if (e) {
-        console.error(e); process.exit(0);
+        throw e;
       }
       jsdom.env(response.text, (e, window) => {
         if (e) {
-          console.error(e); process.exit(0);
+          throw e;
         }
         let $ = jquery(window);
 
@@ -77,7 +77,6 @@ function parsePage() {
         } else {
           // End of the Digimon Encyclopedia
           console.log('End of Encyclopedia.');
-          process.exit(0);
         }
       });
     }
@@ -130,7 +129,7 @@ function handleNewStage(node) {
       console.log(`Writing ${digimon.prettyName} to file...`);
       fs.writeFile(`./digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
         if (e) {
-          console.error(e); process.exit(0);
+          throw e;
         }
       });
       digimon = digiInit();
@@ -148,7 +147,7 @@ function handleNewMon(node) {
     console.log(`Writing ${digimon.prettyName} to file...`);
     fs.writeFile(`.dist/digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
       if (e) {
-        console.error(e); process.exit(0);
+        throw e;
       }
     });
   }
@@ -165,7 +164,7 @@ function handleNewMon(node) {
 }
 
 function handleTypeNumber(node) {
-  digimon.number = parseInt(node.text().match(numberRegex)[0]);
+  digimon.number = parseInt(node.text().match(numberRegex)[0], 10);
   console.log('Numbered: ' + digimon.number);
 
   digimon.type = node.text().match(typeRegex)[0].substring(6);
@@ -179,7 +178,7 @@ function handleStats(node) {
   while ((res = statRegex.exec(text)) !== null) {
     res = res[0].split(/(\d+)/);
 
-    digimon.stats[res[0].toLowerCase()] = parseInt(res[1]);
+    digimon.stats[res[0].toLowerCase()] = parseInt(res[1], 10);
 
     console.log(`${res[0].toLowerCase()}: ${digimon.stats[res[0].toLowerCase()]}`);
   }

@@ -1,7 +1,5 @@
 import React from 'react';
-import DigimonImage from './digimon-image.jsx';
-import DigimonInfo from './digimon-info.jsx';
-import DigimonTitle from './digimon-title.jsx';
+import PropTypes from 'prop-types';
 
 export default class Digimon extends React.Component {
   render() {
@@ -14,3 +12,7 @@ export default class Digimon extends React.Component {
     );
   }
 }
+
+Digimon.propTypes = {
+  digimon: PropTypes.object
+};

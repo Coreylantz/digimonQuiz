@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AnswerArrowRight extends React.Component {
   shouldComponentUpdate() {
@@ -13,7 +14,7 @@ class AnswerArrowRight extends React.Component {
 }
 
 AnswerArrowRight.propTypes = {
-  onClick: React.PropTypes.func
+  onClick: PropTypes.func
 };
 
 export default AnswerArrowRight;

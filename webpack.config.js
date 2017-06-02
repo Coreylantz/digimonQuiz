@@ -11,7 +11,7 @@ config.entry = [
 
 config.output = {
   path: DIST_DIR + '/js',
-  publicPath: '/dist/js/',
+  publicPath: '/js/',
   filename: 'bundle.js'
 };
 

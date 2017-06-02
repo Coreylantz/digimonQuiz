@@ -1,9 +1,8 @@
 import React from 'react';
-import IPropTypes from 'immutable-props';
+import PropTypes from 'prop-types';
 import AnswerPosition from './answer-position.jsx';
 import AnswerArrowLeft from './answer-arrow-left.jsx';
 import AnswerArrowRight from './answer-arrow-right.jsx';
-import AnswerSubmit from './answer-submit.jsx';
 
 class Answers extends React.Component {
 
@@ -12,25 +11,21 @@ class Answers extends React.Component {
       <div className="answers">
         <AnswerPosition />
         <div className="answerFlex">
-          <AnswerArrowLeft onClick={this.props.handleClickLeft} />
-          <p>{this.props.answer}</p>
-          <AnswerArrowRight onClick={this.props.handleClickRight} />
+          <AnswerArrowLeft onClick={this.props.onClickLeft} />
+          <p className="answer">{this.props.answerText}</p>
+          <AnswerArrowRight onClick={this.props.onClickRight} />
         </div>
-        <button onClick={this.props.answerSubmit}>Submit</button>
+        <button onClick={this.props.onAnswerSubmit}>Submit</button>
       </div>
     );
   }
 }
 
-// Answers.propTypes = {
-//   answers: IPropTypes.Seq
-// };
-class AnswerText extends React.PureComponent {
-  render() {
-    return (
-      <p className="answer">{this.props.answer}</p>
-    );
-  }
-}
+Answers.propTypes = {
+  answerText: PropTypes.string,
+  onAnswerSubmit: PropTypes.func,
+  onClickRight: PropTypes.func,
+  onClickLeft: PropTypes.func
+};
 
 export default Answers;

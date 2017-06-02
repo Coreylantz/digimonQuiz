@@ -1,29 +1,28 @@
 import React from 'react';
-// const request = require('superagent');
 import request from 'superagent';
 import questionData from './question-data';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
-import user from './user.js';
-
-let possibleEvos = [];
+import user from './user';
 
 export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {currentQuestion: 0,
-                  currentAnswer: 0,
-                  currentStage: 0,
-                  currentDigimon: {
-                    name:"egg", 
-                    prettyName:"", 
-                    stats:{},
-                    type:"",
-                    number:-1,
-                    nextEvos:[]}
-                  };
+      currentAnswer: 0,
+      currentStage: 0,
+      currentDigimon: {
+        name: 'egg',
+        prettyName: '',
+        stats: {},
+        type: '',
+        number: -1,
+        nextEvos: []}
+    };
+
+    this.possibleEvos = []; // Array of possible evoltions
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -33,53 +32,47 @@ export default class App extends React.PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
-    this.getCurrentAnswer = this.getCurrentAnswer.bind(this);
+    this.getCurrentAnswerText = this.getCurrentAnswerText.bind(this);
 
     this.findFirstDigimon();
   }
 
   findFirstDigimon() {
-    if (this.state.currentDigimon.number !== -1) {
-      return this.state.currentDigimon; 
-    } else {
-       request
+    if (this.state.currentDigimon.number === -1) {
+      request
        .get(`digimon/${this.state.currentDigimon.name}.json`)
-       .end( (err, data) => {
-        if (err || !data.ok) {
-        alert('Oh no! error');
-     } else {
-       this.setState({currentDigimon: JSON.parse(data.text)});
-       
-     }
+       .end((err, data) => {
+         if (err || !data.ok) {
+           console.error(err);
+         } else {
+           this.setState({currentDigimon: JSON.parse(data.text)});
+         }
        });
     }
   }
 
   findDigimonEvolution() {
-    this.state.currentDigimon.nextEvos.forEach((digimonName)  => {
-       request
+    this.state.currentDigimon.nextEvos.forEach(digimonName => {
+      request
        .get(`digimon/${digimonName}.json`)
-       .end( (err, data) => {
-        if (err || !data.ok) {
-        alert('Oh no! error');
-     } else {
-       possibleEvos.push(JSON.parse(data.text))
-       // console.log(possibleEvos)
-       // console.log(JSON.parse(data.text))
-     }
+       .end((err, data) => {
+         if (err || !data.ok) {
+           console.error(err);
+         } else {
+           this.possibleEvos.push(JSON.parse(data.text));
+         }
        });
-    })
+    });
   }
 
   findDigimonMatch() {
     let matchedNumber;
     let digivolution;
 
-    possibleEvos.map((nextDigimon, i) => {
-      
+    this.possibleEvos.forEach(nextDigimon => {
       let matchedStats = 0;
       const digimonStatName = Object.keys(nextDigimon.stats);
-      digimonStatName.map( (stat) => {
+      digimonStatName.forEach(stat => {
         const userStat = user[stat];
         const nextDigimonStat = nextDigimon.stats[stat];
         const matchedStat = userStat / nextDigimonStat;
@@ -88,21 +81,21 @@ export default class App extends React.PureComponent {
         // console.log(`differnce: ${userStat / nextDigimonStat}`);
 
         matchedStats += matchedStat;
-      })
+      });
 
-        matchedStats -= 6;
-        const finalMatch = Math.abs(matchedStats);
+      matchedStats -= 6;
+      const finalMatch = Math.abs(matchedStats);
         // console.log(finalMatch);
-    
-        if (matchedNumber !== NaN && matchedNumber < finalMatch) {
+
+      if (!isNaN(matchedNumber) && matchedNumber < finalMatch) {
           // matchedNumber = finalMatch;
           // console.log(`WhateverOne Number ${matchedNumber} ${nextDigimon}`);
-        } else {
-          matchedNumber = finalMatch;
-          console.log(nextDigimon);
-          digivolution = nextDigimon;
-        }
-    })
+      } else {
+        matchedNumber = finalMatch;
+        console.log(nextDigimon);
+        digivolution = nextDigimon;
+      }
+    });
 
     this.setState({currentDigimon: digivolution});
   }
@@ -147,7 +140,7 @@ export default class App extends React.PureComponent {
     return this.getCurrentQuestion().get('answers').get(this.state.currentAnswer);
   }
 
-  getCurrentAnswer() {
+  getCurrentAnswerText() {
     return this.getAnswerText().get(this.state.currentAnswer);
   }
 
@@ -166,7 +159,7 @@ export default class App extends React.PureComponent {
   handleSubmit() {
     const stats = this.getAnswerStats();
     for (var stat in stats) {
-      if (stats.hasOwnProperty(stat)) {
+      if (stat in stats) {
         const statValue = stats[stat];
         this.updateUser(statValue, stats);
       }
@@ -179,11 +172,12 @@ export default class App extends React.PureComponent {
       this.findDigimonMatch();
     } else {
       // find the next possible eveolutions on the 2nd last question
-      if(this.state.currentQuestion === this.getCurrentStage().size - 2) {
+      if (this.state.currentQuestion === this.getCurrentStage().size - 2) {
         this.findDigimonEvolution();
-      } else {possibleEvos = [];
+      } else {
+        this.possibleEvos = [];
       // console.log(possibleEvos)
-       }
+      }
       this.setState({currentQuestion: this.state.currentQuestion + 1});
     }
 
@@ -203,11 +197,10 @@ export default class App extends React.PureComponent {
         <DigimonContainer digimon={this.state.currentDigimon} />
         <QuestionContainer question={this.getCurrentQuestionText()} />
         <AnswerContainer
-          handleClickLeft={this.handleClickLeft}
-          handleClickRight={this.handleClickRight}
-          answers={this.getAnswerText()}
-          answer={this.getCurrentAnswer()}
-          answerSubmit={this.handleSubmit}
+          onClickLeft={this.handleClickLeft}
+          onClickRight={this.handleClickRight}
+          answerText={this.getCurrentAnswerText()}
+          onAnswerSubmit={this.handleSubmit}
           />
       </div>
     );

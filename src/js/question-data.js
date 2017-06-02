@@ -268,7 +268,7 @@ question = new Seq({
       atk: 1,
       spd: 1,
       sp: 1,
-      hp:1
+      hp: 1
     })
   ])
 });
@@ -294,7 +294,7 @@ question = new Seq({
       atk: 1,
       spd: 1,
       sp: 1,
-      hp:1
+      hp: 1
     })
   ])
 });
@@ -320,7 +320,7 @@ question = new Seq({
       atk: 1,
       spd: 1,
       sp: 1,
-      hp:1
+      hp: 1
     })
   ])
 });
@@ -346,7 +346,7 @@ question = new Seq({
       atk: 1,
       spd: 1,
       sp: 1,
-      hp:1
+      hp: 1
     })
   ])
 });
@@ -355,7 +355,6 @@ questionList = questionList.push(question);
 
 // Add the stage
 questions = questions.push(questionList.valueSeq());
-
 
 // Make the export a stack
 const questionData = new Stack(questions);
