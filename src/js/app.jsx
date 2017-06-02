@@ -149,8 +149,8 @@ export default class App extends React.PureComponent {
 
   handleSubmit() {
     const stats = this.getCurrentAnswer();
-    for (var stat in user) {
-      if (stat in stats) {
+    for (var stat in stats) {
+      if (stat in user) {
         const statValue = stats[stat];
         this.updateUser(statValue, stats);
       }
