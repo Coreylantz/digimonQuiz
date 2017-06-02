@@ -32,7 +32,6 @@ export default class App extends React.PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
-    this.getCurrentAnswerText = this.getCurrentAnswerText.bind(this);
 
     this.findFirstDigimon();
   }
@@ -112,36 +111,28 @@ export default class App extends React.PureComponent {
     return this.getCurrentQuestion().get('question');
   }
 
-  getAnswerText() {
-    return this.getCurrentQuestion().get('answers').map(answer => {
-      return answer.get('text');
-    });
+  getAnswers() {
+    return this.getCurrentQuestion().get('answers');
+  }
+
+  getCurrentAnswer() {
+    return this.getCurrentQuestion().get('answers').get(this.state.currentAnswer);
   }
 
   handleClickLeft() {
     if (this.state.currentAnswer === 0) {
-      this.setState({currentAnswer: this.getAnswerText().size - 1});
+      this.setState({currentAnswer: this.getAnswers().size - 1});
     } else {
       this.setState({currentAnswer: this.state.currentAnswer - 1});
     }
-    // console.log(this.state.currentAnswer);
   }
 
   handleClickRight() {
-    if (this.state.currentAnswer === this.getAnswerText().size - 1) {
+    if (this.state.currentAnswer === this.getAnswers().size - 1) {
       this.setState({currentAnswer: 0});
     } else {
       this.setState({currentAnswer: this.state.currentAnswer + 1});
     }
-    // console.log(this.state.currentAnswer);
-  }
-
-  getAnswerStats() {
-    return this.getCurrentQuestion().get('answers').get(this.state.currentAnswer);
-  }
-
-  getCurrentAnswerText() {
-    return this.getAnswerText().get(this.state.currentAnswer);
   }
 
   updateUser(statValue, stats) {
@@ -157,8 +148,8 @@ export default class App extends React.PureComponent {
   }
 
   handleSubmit() {
-    const stats = this.getAnswerStats();
-    for (var stat in stats) {
+    const stats = this.getCurrentAnswer();
+    for (var stat in user) {
       if (stat in stats) {
         const statValue = stats[stat];
         this.updateUser(statValue, stats);
@@ -185,12 +176,6 @@ export default class App extends React.PureComponent {
     // console.log(this.getCurrentStage().size);
   }
 
-  // getAnswerStat() {
-  //   return this.getCurrentQuestion().get('answers').map(answer (answer, i) => {
-  //     return answer.get('hp');
-  //   });
-  // }
-
   render() {
     return (
       <div className="wrapper">
@@ -199,7 +184,7 @@ export default class App extends React.PureComponent {
         <AnswerContainer
           onClickLeft={this.handleClickLeft}
           onClickRight={this.handleClickRight}
-          answerText={this.getCurrentAnswerText()}
+          answerText={this.getCurrentAnswer().get('text')}
           onAnswerSubmit={this.handleSubmit}
           />
       </div>
