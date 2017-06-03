@@ -1,5 +1,7 @@
 import React from 'react';
 import request from 'superagent';
+import {List} from 'immutable';
+
 import questionData from './question-data';
 import baseUser from './user';
 import QuestionContainer from './question/question-container.jsx';
@@ -22,7 +24,7 @@ export default class App extends React.PureComponent {
       }
     };
 
-    this.possibleEvos = []; // Array of possible evoltions
+    this.possibleEvos = new List(); // Array of possible evoltions
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
@@ -55,7 +57,7 @@ export default class App extends React.PureComponent {
   }
 
   findDigimonEvolution(digimon) {
-    this.possibleEvos = [];
+    this.possibleEvos = this.possibleEvos.clear();
     digimon.nextEvos.forEach(digimonName => {
       request
         .get(`digimon/${digimonName}.json`)
@@ -63,41 +65,38 @@ export default class App extends React.PureComponent {
           if (err || !data.ok) {
             console.error(err);
           } else {
-            this.possibleEvos.push(JSON.parse(data.text));
+            this.possibleEvos = this.possibleEvos.push(JSON.parse(data.text));
           }
         });
     });
   }
 
   findDigimonMatch() {
-    let matchedNumber;
-    let digivolution;
+    let digivolution = this.possibleEvos.map(digimon => {
+      return {
+        difference: this.user.map((stat, statName) => {
+          if (!(statName in digimon.stats)) {
+            return 0;
+          }
 
-    this.possibleEvos.forEach(nextDigimon => {
-      let matchedStats = 0;
-      const digimonStatName = Object.keys(nextDigimon.stats);
-      digimonStatName.forEach(stat => {
-        const userStat = this.user.get(stat);
-        const nextDigimonStat = nextDigimon.stats[stat];
-        const matchedStat = userStat / nextDigimonStat;
-
-        matchedStats += matchedStat;
-      });
-
-      matchedStats -= digimonStatName.length;
-      const finalMatch = Math.abs(matchedStats);
-
-      if (!isNaN(matchedNumber) && matchedNumber < finalMatch) {
-          // matchedNumber = finalMatch;
-          // console.log(`WhateverOne Number ${matchedNumber} ${nextDigimon}`);
-      } else {
-        matchedNumber = finalMatch;
-        digivolution = nextDigimon;
+          return (digimon.stats[statName] / stat) - 1;
+        }).reduce((total, value) => {
+          return total + value;
+        }),
+        digimon: digimon
+      };
+    }).min((a, b) => {
+      if (a.difference < b.difference) {
+        return -1;
+      } else if (a.difference > b.difference) {
+        return 1;
       }
+
+      return 0;
     });
 
-    this.setState({currentDigimon: digivolution});
-    this.findDigimonEvolution(digivolution);
+    this.setState({currentDigimon: digivolution.digimon});
+    this.findDigimonEvolution(digivolution.digimon);
   }
 
   getQuestions() {
@@ -105,7 +104,13 @@ export default class App extends React.PureComponent {
   }
 
   getCurrentQuestion() {
-    return this.getQuestions().get(this.state.currentQuestion);
+    let questions = this.getQuestions();
+
+    if (this.state.currentQuestion > questions.size - 1) {
+      return questions.get(0);
+    }
+
+    return questions.get(this.state.currentQuestion);
   }
 
   getCurrentQuestionText() {
@@ -152,8 +157,14 @@ export default class App extends React.PureComponent {
     this.setState({currentQuestion: this.state.currentQuestion + 1});
 
     if (this.state.currentQuestion + 1 === this.getQuestions().size) {
-      this.setState({currentQuestion: 0});
       this.allQuestions = this.allQuestions.pop();
+
+      this.setState({currentQuestion: 0});
+
+      if (this.state.currentAnswer >= this.getAnswers().size - 1) {
+        this.setState({currentAnswer: this.getAnswers().size - 1});
+      }
+
       this.findDigimonMatch();
     }
   }
