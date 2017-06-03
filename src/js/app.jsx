@@ -95,6 +95,9 @@ export default class App extends React.PureComponent {
       return 0;
     });
 
+    this.user = this.user.set('digimon',
+      this.user.get('digimon').push(digivolution.digimon)
+    );
     this.setState({currentDigimon: digivolution.digimon});
     this.findDigimonEvolution(digivolution.digimon);
   }
