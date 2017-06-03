@@ -5,7 +5,7 @@ import Digimon from './digimon.jsx';
 export default class DigimonContainer extends React.Component {
   render() {
     return (
-      <div className="digimonContainer">
+      <div className={`digimonContainer ${this.props.mega ? 'megaStage' : ''}`}>
         <Digimon digimon={this.props.digimon} />
       </div>
     );
@@ -13,5 +13,6 @@ export default class DigimonContainer extends React.Component {
 }
 
 DigimonContainer.propTypes = {
-  digimon: PropTypes.object
+  digimon: PropTypes.object,
+  mega: PropTypes.bool
 };

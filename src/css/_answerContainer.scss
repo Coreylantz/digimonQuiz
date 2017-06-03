@@ -7,6 +7,10 @@
 	justify-content: center;
 	align-items: center;
 
+	&.megaStage {
+		display: none;
+	}
+
 	.answers {
 		display: flex;
 		flex-direction: column;

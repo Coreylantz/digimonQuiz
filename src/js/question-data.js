@@ -278,9 +278,59 @@ questionList = questionList.push(question);
 // Add the stage
 questions = questions.push(questionList.valueSeq());
 
+// ----------------------------------------------------------
+// Start a new question list for the next stage
+questionList = new List();
+
 // Set up a different question
 question = new Seq({
-  question: 'Question 3 for Stage 4',
+  question: 'Question 1 for Stage 5',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 1',
+      hp: 15,
+      sp: 4 // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 1',
+      int: 1,
+      def: 1,
+      atk: 1,
+      spd: 1,
+      sp: 1,
+      hp: 1
+    })
+  ])
+});
+
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 2 for Stage 5',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 2',
+      hp: 15,
+      sp: 4 // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 2',
+      int: 1,
+      def: 1,
+      atk: 1,
+      spd: 1,
+      sp: 1,
+      hp: 1
+    })
+  ])
+});
+
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 3 for Stage 5',
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 3',
@@ -304,9 +354,59 @@ questionList = questionList.push(question);
 // Add the stage
 questions = questions.push(questionList.valueSeq());
 
+// ----------------------------------------------------------
+// Start a new question list for the next stage
+questionList = new List();
+
 // Set up a different question
 question = new Seq({
-  question: 'Question 3 for Stage 4',
+  question: 'Question 1 for Stage 6',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 1',
+      hp: 15,
+      sp: 4 // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 1',
+      int: 1,
+      def: 1,
+      atk: 1,
+      spd: 1,
+      sp: 1,
+      hp: 1
+    })
+  ])
+});
+
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 2 for Stage 6',
+  answers: new Seq([
+    new Seq({
+      text: 'Answer 1 for Question 2',
+      hp: 15,
+      sp: 4 // Continue as needed
+    }),
+    new Seq({
+      text: 'Answer 2 for Question 2',
+      int: 1,
+      def: 1,
+      atk: 1,
+      spd: 1,
+      sp: 1,
+      hp: 1
+    })
+  ])
+});
+
+questionList = questionList.push(question);
+
+// Set up a different question
+question = new Seq({
+  question: 'Question 3 for Stage 6',
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 3',
@@ -330,30 +430,20 @@ questionList = questionList.push(question);
 // Add the stage
 questions = questions.push(questionList.valueSeq());
 
-// Set up a different question
+// ----------------------------------------------------------
+// Mega Stage
+questionList = new List();
+
 question = new Seq({
-  question: 'Question 3 for Stage 4',
+  question: '',
   answers: new Seq([
     new Seq({
-      text: 'Answer 1 for Question 3',
-      hp: 15,
-      sp: 4 // Continue as needed
-    }),
-    new Seq({
-      text: 'Answer 2 for Question 3',
-      int: 1,
-      def: 1,
-      atk: 1,
-      spd: 1,
-      sp: 1,
-      hp: 1
+      text: ''
     })
   ])
 });
 
 questionList = questionList.push(question);
-
-// Add the stage
 questions = questions.push(questionList.valueSeq());
 
 // Make the export a stack

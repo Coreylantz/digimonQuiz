@@ -1,10 +1,10 @@
 import React from 'react';
 import request from 'superagent';
 import questionData from './question-data';
+import baseUser from './user';
 import QuestionContainer from './question/question-container.jsx';
 import AnswerContainer from './answer/answer-container.jsx';
 import DigimonContainer from './digimon/digimon-container.jsx';
-import baseUser from './user';
 
 export default class App extends React.PureComponent {
   constructor(props) {
@@ -12,21 +12,21 @@ export default class App extends React.PureComponent {
 
     this.state = {currentQuestion: 0,
       currentAnswer: 0,
-      currentStage: 0,
       currentDigimon: {
         name: 'egg',
         prettyName: '',
         stats: {},
         type: '',
         number: -1,
-        nextEvos: []}
+        nextEvos: []
+      }
     };
 
     this.possibleEvos = []; // Array of possible evoltions
 
     // Create a non import copy of question data so we can modify the reference
     // so poping the old stage works.
-    this.questions = questionData;
+    this.allQuestions = questionData;
 
     this.user = baseUser;
 
@@ -41,28 +41,31 @@ export default class App extends React.PureComponent {
   findFirstDigimon() {
     if (this.state.currentDigimon.number === -1) {
       request
-       .get(`digimon/${this.state.currentDigimon.name}.json`)
-       .end((err, data) => {
-         if (err || !data.ok) {
-           console.error(err);
-         } else {
-           this.setState({currentDigimon: JSON.parse(data.text)});
-         }
-       });
+        .get(`digimon/${this.state.currentDigimon.name}.json`)
+        .end((err, data) => {
+          if (err || !data.ok) {
+            console.error(err);
+          } else {
+            const digimon = JSON.parse(data.text);
+            this.setState({currentDigimon: digimon});
+            this.findDigimonEvolution(digimon);
+          }
+        });
     }
   }
 
-  findDigimonEvolution() {
-    this.state.currentDigimon.nextEvos.forEach(digimonName => {
+  findDigimonEvolution(digimon) {
+    this.possibleEvos = [];
+    digimon.nextEvos.forEach(digimonName => {
       request
-       .get(`digimon/${digimonName}.json`)
-       .end((err, data) => {
-         if (err || !data.ok) {
-           console.error(err);
-         } else {
-           this.possibleEvos.push(JSON.parse(data.text));
-         }
-       });
+        .get(`digimon/${digimonName}.json`)
+        .end((err, data) => {
+          if (err || !data.ok) {
+            console.error(err);
+          } else {
+            this.possibleEvos.push(JSON.parse(data.text));
+          }
+        });
     });
   }
 
@@ -83,27 +86,26 @@ export default class App extends React.PureComponent {
 
       matchedStats -= digimonStatName.length;
       const finalMatch = Math.abs(matchedStats);
-        // console.log(finalMatch);
 
       if (!isNaN(matchedNumber) && matchedNumber < finalMatch) {
           // matchedNumber = finalMatch;
           // console.log(`WhateverOne Number ${matchedNumber} ${nextDigimon}`);
       } else {
         matchedNumber = finalMatch;
-        // console.log(nextDigimon);
         digivolution = nextDigimon;
       }
     });
 
     this.setState({currentDigimon: digivolution});
+    this.findDigimonEvolution(digivolution);
   }
 
-  getCurrentStage() {
-    return this.questions.get(this.state.currentStage);
+  getQuestions() {
+    return this.allQuestions.peek();
   }
 
   getCurrentQuestion() {
-    return this.getCurrentStage().get(this.state.currentQuestion);
+    return this.getQuestions().get(this.state.currentQuestion);
   }
 
   getCurrentQuestionText() {
@@ -115,7 +117,7 @@ export default class App extends React.PureComponent {
   }
 
   getCurrentAnswer() {
-    return this.getCurrentQuestion().get('answers').get(this.state.currentAnswer);
+    return this.getAnswers().get(this.state.currentAnswer);
   }
 
   handleClickLeft() {
@@ -147,31 +149,31 @@ export default class App extends React.PureComponent {
   handleSubmit() {
     this.user = this.updateUser(this.getCurrentAnswer());
 
-    if (this.state.currentQuestion === this.getCurrentStage().size - 1) {
-      this.setState({currentStage: this.state.currentStage + 1,
-        currentQuestion: 0});
-      // this.setState({currentDigimon: possibleEvos[0]});
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
+
+    if (this.state.currentQuestion + 1 === this.getQuestions().size) {
+      this.setState({currentQuestion: 0});
+      this.allQuestions = this.allQuestions.pop();
       this.findDigimonMatch();
-    } else {
-      // find the next possible eveolutions on the 2nd last question
-      if (this.state.currentQuestion === this.getCurrentStage().size - 2) {
-        this.findDigimonEvolution();
-      } else {
-        this.possibleEvos = [];
-      }
-      this.setState({currentQuestion: this.state.currentQuestion + 1});
     }
   }
 
   render() {
     return (
       <div className="wrapper">
-        <DigimonContainer digimon={this.state.currentDigimon} />
-        <QuestionContainer question={this.getCurrentQuestionText()} />
+        <DigimonContainer
+          digimon={this.state.currentDigimon}
+          mega={this.allQuestions.size === 1}
+          />
+        <QuestionContainer
+          question={this.getCurrentQuestionText()}
+          mega={this.allQuestions.size === 1}
+          />
         <AnswerContainer
+          answerText={this.getCurrentAnswer().get('text')}
+          mega={this.allQuestions.size === 1}
           onClickLeft={this.handleClickLeft}
           onClickRight={this.handleClickRight}
-          answerText={this.getCurrentAnswer().get('text')}
           onAnswerSubmit={this.handleSubmit}
           />
       </div>
