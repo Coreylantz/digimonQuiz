@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Digimon extends React.Component {
+  // coming soon for digimon animation
+// className={ `${this.props.digivolve ? 'digivolving' : ''}` }
   render() {
     return (
       <div className="digimon">

@@ -178,6 +178,7 @@ export default class App extends React.PureComponent {
         <DigimonContainer
           digimon={this.state.currentDigimon}
           mega={this.allQuestions.size === 1}
+          // digivolve={}
           />
         <QuestionContainer
           question={this.getCurrentQuestionText()}

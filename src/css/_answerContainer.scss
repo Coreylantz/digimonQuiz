@@ -2,13 +2,13 @@
 	width: 50%;
 	height: 50vh;
 	background: #98ff98;
-	display: inline-block;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: all 0.5s;
 
 	&.megaStage {
-		display: none;
+		transition: all 0.5s ease-in;
 	}
 
 	.answers {
