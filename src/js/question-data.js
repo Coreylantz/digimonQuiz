@@ -2,16 +2,57 @@ import {Seq, Stack, List} from 'immutable';
 
 // Set up a question
 let question = new Seq({
-  question: 'Question 1 for Stage 1',
+  question: 'What is your Crest?',
   answers: new Seq([
     new Seq({
-      text: 'Answer 1 for Question 1',
-      hp: 100 // Continue as needed
+      text: 'Courage',
+      hp: 20,
+      atk: 15,
+      def: 10
     }),
     new Seq({
-      text: 'Answer 2 for Question 1',
-      sp: 10,
-      hp: 50
+      text: 'Friendship',
+      hp: 20,
+      atk: 15,
+      def: 5
+    }),
+    new Seq({
+      text: 'Love',
+      hp: 25,
+      def: 20
+    }),
+    new Seq({
+      text: 'Sincerity',
+      hp: 10,
+      def: 15,
+      atk: 15
+    }),
+    new Seq({
+      text: 'Knowledge',
+      hp: 25,
+      int: 15,
+      def: 5
+    }),
+    new Seq({
+      text: 'Reliability',
+      hp: 15,
+      spd: 10
+    }),
+    new Seq({
+      text: 'Hope',
+      atk: 10,
+      spd: 5
+    }),
+    new Seq({
+      text: 'Light',
+      sp: 20,
+      int: 20,
+      spd: 5
+    }),
+    new Seq({
+      text: 'Kindness',
+      def: 15,
+      spd: 15
     })
   ])
 });

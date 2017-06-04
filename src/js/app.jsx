@@ -149,7 +149,7 @@ export default class App extends React.PureComponent {
       if (stats.has(key)) {
         value += stats.get(key);
       }
-
+      console.log(value);
       return value;
     });
   }
@@ -157,7 +157,8 @@ export default class App extends React.PureComponent {
   handleSubmit() {
     this.user = this.updateUser(this.getCurrentAnswer());
 
-    this.setState({currentQuestion: this.state.currentQuestion + 1});
+    this.setState({currentQuestion: this.state.currentQuestion + 1,
+      currentAnswer: 0});
 
     if (this.state.currentQuestion + 1 === this.getQuestions().size) {
       this.allQuestions = this.allQuestions.pop();
