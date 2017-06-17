@@ -149,7 +149,7 @@ export default class App extends React.PureComponent {
       if (stats.has(key)) {
         value += stats.get(key);
       }
-      console.log(value);
+      // console.log(value);
       return value;
     });
   }

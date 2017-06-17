@@ -6,9 +6,12 @@ let question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Courage',
-      hp: 20,
-      atk: 15,
-      def: 10
+      hp: 295,
+      sp: 29.25,
+      atk: 32.75,
+      int: 32.5,
+      def: 39.75,
+      spd: 25
     }),
     new Seq({
       text: 'Friendship',
@@ -51,8 +54,8 @@ let question = new Seq({
     }),
     new Seq({
       text: 'Kindness',
-      def: 15,
-      spd: 15
+      def: 30,
+      spd: 30
     })
   ])
 });
@@ -62,17 +65,71 @@ let questionList = new List().push(question);
 
 // Set up a different question
 question = new Seq({
-  question: 'Question 2 for Stage 1',
+  question: 'What would you like to be?',
   answers: new Seq([
     new Seq({
-      text: 'Answer 1 for Question 2',
-      spd: 10, // Continue as needed
+      text: 'Novelist',
+      hp: 295,
+      sp: 29.25,
+      atk: 32.75,
+      int: 32.5,
+      def: 39.75,
+      spd: 25
+    }),
+    new Seq({
+      text: 'Diplomat',
+      atk: 15,
+      def: 10
+    }),
+    new Seq({
+      text: 'Astronaut',
+      sp: 15,
+      int: 10
+    }),
+    new Seq({
+      text: 'Fashion Designer',
+      hp: 20,
+      atk: 10
+    }),
+    new Seq({
+      text: 'Scientist',
+      def: 15,
+      int: 10
+    }),
+    new Seq({
+      text: 'TV Star',
+      spd: 15,
+      def: 10
+    }),
+    new Seq({
+      text: 'Doctor',
+      int: 15,
       sp: 10
     }),
     new Seq({
-      text: 'Answer 2 for Question 2',
-      atk: 20,
-      def: 5
+      text: 'Teacher',
+      hp: 20,
+      def: 10
+    }),
+    new Seq({
+      text: 'Detective',
+      atk: 15,
+      spd: 10
+    }),
+    new Seq({
+      text: 'Stay At Home Parent',
+      hp: 20,
+      sp: 10
+    }),
+    new Seq({
+      text: 'Lawyer',
+      int: 15,
+      def: 10
+    }),
+    new Seq({
+      text: 'Chef',
+      spd: 15,
+      sp: 10
     })
   ])
 });
@@ -85,18 +142,28 @@ question = new Seq({
   question: 'Question 3 for Stage 1',
   answers: new Seq([
     new Seq({
-      text: 'Answer 1 for Question 3',
-      int: 10,
-      def: 7,
-      atk: 10,
-      hp: 20
-       // Continue as needed
+      text: 'one',
+      hp: 295,
+      sp: 29.25,
+      atk: 32.75,
+      int: 32.5,
+      def: 39.75,
+      spd: 25
     }),
     new Seq({
-      text: 'Answer 2 for Question 3',
+      text: 'two',
       hp: 20,
-      sp: 5,
-      atk: 5
+      sp: 20
+    }),
+    new Seq({
+      text: 'three',
+      int: 10,
+      def: 20
+    }),
+    new Seq({
+      text: 'four',
+      spd: 10,
+      sp: 20
     })
   ])
 });
@@ -110,13 +177,18 @@ question = new Seq({
   answers: new Seq([
     new Seq({
       text: 'Answer 1 for Question 4',
-      hp: 20 // Continue as needed
+      hp: 295,
+      sp: 29.25,
+      atk: 32.75,
+      int: 32.5,
+      def: 39.75,
+      spd: 25 // Continue as needed
     }),
     new Seq({
       text: 'Answer 2 for Question 4',
-      int: 30,
-      def: 50,
-      spd: 60
+      int: 15,
+      def: 5,
+      spd: 10
 
     })
   ])
