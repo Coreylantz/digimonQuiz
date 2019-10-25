@@ -34,7 +34,8 @@ function digiInit() {
     },
     type: '',
     number: 0,
-    nextEvos: []
+    nextEvos: [],
+    stage: '',
   };
 }
 
@@ -123,11 +124,10 @@ function handleNewStage(node) {
 
   if (evoRegex.test(currentStage)) {
     doingEvo = false;
-
     // Write the old mon to json
     if (digimon.name.length > 0) {
       console.log(`Writing ${digimon.prettyName} to file...`);
-      fs.writeFile(`./digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
+      fs.writeFile(`./digimon/${digimon.stage}/${digimon.name}.json`, JSON.stringify(digimon), e => {
         if (e) {
           throw e;
         }
@@ -145,7 +145,7 @@ function handleNewMon(node) {
   // Write the old mon to json
   if (digimon.name.length > 0) {
     console.log(`Writing ${digimon.prettyName} to file...`);
-    fs.writeFile(`.dist/digimon/${digimon.name}.json`, JSON.stringify(digimon), e => {
+    fs.writeFile(`dist/digimon/${digimon.stage}/${digimon.name}.json`, JSON.stringify(digimon), e => {
       if (e) {
         throw e;
       }
@@ -158,6 +158,7 @@ function handleNewMon(node) {
   digimon.prettyName = node.text().substring(0, node.text().search(jpRegex) - 1);
   digimon.name = digimon.prettyName.replace(cleanRegex, '').toLowerCase();
   digimon.jpName = node.text().substring(node.text().search(jpRegex));
+  digimon.stage = `${currentStage.toLowerCase()}`
 
   console.log('Named: ' + digimon.prettyName);
   console.log('jp Name: ' + digimon.jpName);
