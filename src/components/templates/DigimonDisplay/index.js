@@ -1,0 +1,1 @@
+export { DigimonDisplay } from './DigimonDisplay'
